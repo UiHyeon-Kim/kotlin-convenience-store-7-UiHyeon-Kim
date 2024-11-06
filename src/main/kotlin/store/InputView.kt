@@ -1,5 +1,5 @@
 package store
 
-object OutputView {
+object InputView {
 
 }
