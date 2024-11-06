@@ -1,5 +1,5 @@
 package store
 
-object InputView {
+class InputView {
 
 }
