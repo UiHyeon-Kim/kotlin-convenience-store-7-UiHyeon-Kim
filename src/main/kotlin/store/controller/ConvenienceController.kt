@@ -1,4 +1,9 @@
-package store
+package store.controller
+
+import camp.nextstep.edu.missionutils.DateTimes
+import store.model.FileManager
+import store.view.InputView
+import store.view.OutputView
 
 class ConvenienceController(
     private val inputView: InputView = InputView(),
@@ -9,6 +14,7 @@ class ConvenienceController(
     fun run() {
         val products = fileManager.readProductFile("src/main/resources/products.md")
         val promotion = fileManager.readPromotionFile("src/main/resources/promotions.md")
+        println(DateTimes.now())
 
         outputView.welcomeMessage()
         outputView.printProductFormat(products)

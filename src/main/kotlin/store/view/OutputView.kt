@@ -1,6 +1,6 @@
-package store
+package store.view
 
-import java.nio.file.Files
+import store.model.Product
 
 class OutputView {
 

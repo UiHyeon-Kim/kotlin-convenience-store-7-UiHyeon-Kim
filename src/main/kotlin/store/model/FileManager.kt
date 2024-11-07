@@ -1,9 +1,8 @@
-package store
+package store.model
 
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.text.SimpleDateFormat
-import java.util.*
 
 class FileManager {
     fun readProductFile(filePath: String): List<Product> {
