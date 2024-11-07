@@ -7,11 +7,11 @@ class ConvenienceController(
     private val fileManager: FileManager = FileManager()
 
     fun run() {
-        outputView.welcomeMessage()
         val products = fileManager.readProductFile("src/main/resources/products.md")
         val promotion = fileManager.readPromotionFile("src/main/resources/promotions.md")
 
+        outputView.welcomeMessage()
         outputView.printProductFormat(products)
-        //println("- ${products.joinToString(", ") }}")
+        inputView.purchaseMessage()
     }
 }
