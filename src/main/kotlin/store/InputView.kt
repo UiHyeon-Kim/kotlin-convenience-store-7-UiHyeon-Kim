@@ -1,8 +1,6 @@
 package store
 
 import camp.nextstep.edu.missionutils.Console
-import jdk.internal.org.jline.utils.Colors.s
-import javax.swing.text.html.HTML.Attribute.N
 
 class InputView {
 
@@ -19,6 +17,11 @@ class InputView {
     fun membershipMessage() {
         println("멤버십 할인을 받으시겠습니까? (Y/N)")
         val membershipChoice = Console.readLine()
+    }
+
+    fun additionalPurchasesMessage() {
+        println("감사합니다. 구매하고 싶은 다른 상품이 있나요? (Y/N)")
+        val additionalPurchaseChoice = Console.readLine()
     }
 
 }

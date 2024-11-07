@@ -15,5 +15,7 @@ class ConvenienceController(
         inputView.purchaseMessage()
         inputView.promotionMessage()
         inputView.membershipMessage()
+
+        inputView.additionalPurchasesMessage()
     }
 }
