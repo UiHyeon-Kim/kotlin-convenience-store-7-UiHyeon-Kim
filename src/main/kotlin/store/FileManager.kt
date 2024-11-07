@@ -1,19 +1,41 @@
 package store
 
-import java.nio.charset.StandardCharsets
 import java.nio.file.Files
-import java.nio.file.Path
+import java.nio.file.Paths
+import java.util.*
 
 class FileManager {
+    fun readProductFile(filePath: String): List<Product> {
+        val lines = Files.readAllLines(Paths.get(filePath))
+        val header = lines.first().split(",")
 
-    fun readFile(path: String): String {
-        val filePath = Path.of(path)
-        return Files.readString(filePath, StandardCharsets.UTF_8)
+        return lines.drop(1).map { line ->
+            val values = line.split(",")
 
-//        val classLoader = Thread.currentThread().contextClassLoader
-//        val resource = classLoader.getResource(fileName)
-//        return resource?.readText()
+            Product(
+                name = values[0],
+                price = values[1].toInt(),
+                quantity = values[2].toInt(),
+                promotion = if (values[3].isNotEmpty()) values[3] else null
+            )
+        }
     }
 
-    fun writeFile() {}
+    fun readPromotionFile(filePath: String): List<Promotion> {
+        val lines = Files.readAllLines(Paths.get(filePath))
+        val header = lines.first().split(",")
+
+        return lines.drop(1).map { line ->
+            val values = line.split(",")
+
+            Promotion(
+                name = values[0],
+                buy = values[1].toInt(),
+                get = values[2].toInt(),
+                start_date = Date(values[3]),
+                end_date = Date(values[4])
+            )
+        }
+    }
 }
+
