@@ -13,6 +13,7 @@ class ConvenienceController(
         outputView.welcomeMessage()
         outputView.printProductFormat(products)
         inputView.purchaseMessage()
+        inputView.promotionMessage()
         inputView.membershipMessage()
     }
 }
