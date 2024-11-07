@@ -11,6 +11,7 @@ class ConvenienceController(
         val products = fileManager.readProductFile("src/main/resources/products.md")
         val promotion = fileManager.readPromotionFile("src/main/resources/promotions.md")
 
-        println("- ${products.joinToString(", ") }}")
+        outputView.printProductFormat(products)
+        //println("- ${products.joinToString(", ") }}")
     }
 }
