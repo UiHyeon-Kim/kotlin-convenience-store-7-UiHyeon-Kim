@@ -9,20 +9,20 @@ class ConvenienceController(
     private val inputView: InputView = InputView(),
     private val outputView: OutputView = OutputView(),
 ){
-    private val fileManager: FileManager = FileManager()
+    private lateinit var fileManager: FileManager
 
-    fun run() {
+    fun start() {
         val products = fileManager.readProductFile("src/main/resources/products.md")
         val promotion = fileManager.readPromotionFile("src/main/resources/promotions.md")
         println(DateTimes.now())
 
         outputView.welcomeMessage()
         outputView.printProductFormat(products)
-        inputView.purchaseMessage()
-        inputView.promotionMessage()
-        inputView.membershipMessage()
+        inputView.getPurchaseDetails()
+        inputView.selectPromotion()
+        inputView.selectMembership()
 
-        inputView.additionalPurchasesMessage()
+        inputView.selectAdditionalPurchases()
 
     }
 }

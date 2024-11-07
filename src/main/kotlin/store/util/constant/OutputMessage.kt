@@ -1,6 +1,6 @@
 package store.util.constant
 
-enum class Output(private val message: String) {
+enum class OutputMessage(private val message: String) {
     RECEIPT_HEADER("===========W 편의점============="),
     RECEIPT_ITEM_LABEL("상품명\t\t수량\t금액"),
     RECEIPT_PURCHASED_ITEM("%s\t\t%d\t%d"),
