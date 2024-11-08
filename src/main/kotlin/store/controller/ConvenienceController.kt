@@ -1,6 +1,8 @@
 package store.controller
 
+import camp.nextstep.edu.missionutils.DateTimes
 import store.model.FileManager
+import store.model.Inventory
 import store.util.Vaildator.PurchaseDetailsValidator.getValidatePurchaseDetails
 import store.view.InputView
 import store.view.OutputView
@@ -10,6 +12,7 @@ class ConvenienceController(
     private val outputView: OutputView = OutputView(),
 ){
     private var fileManager: FileManager = FileManager()
+    private lateinit var inventory: Inventory
 
     fun start() {
         val products = fileManager.readProductFile("src/main/resources/products.md")
@@ -22,7 +25,7 @@ class ConvenienceController(
         val rawPurchaseDetails = inputView.getPurchaseDetails()
         val validatedPurchaseList = getValidatePurchaseDetails(rawPurchaseDetails)
 
-        //println(validatedPurchaseList)
+        println(validatedPurchaseList)
 
 
         inputView.selectPromotion()
@@ -31,5 +34,4 @@ class ConvenienceController(
         inputView.selectAdditionalPurchases()
 
     }
-
 }

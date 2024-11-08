@@ -144,12 +144,12 @@ N
 
 ## 기능 목록
 ### 입력 및 출력
-- [ ] 환영 인사
-- [ ] 재고 출력
-  - [ ] src/main/resources/products.md
-  - [ ] src/main/resources/promotions.md
-- [ ] 구매 할 상품과 수량 입력
-  - [ ] `[상품명-수량], ...`
+- [x] 환영 인사
+- [x] 재고 출력
+  - [X] src/main/resources/products.md
+  - [X] src/main/resources/promotions.md
+- [x] 구매 할 상품과 수량 입력
+  - [x] `[상품명-수량], ...`
 - [ ] 프로모션
   - [ ] 프로모션 수량만큼 안가져온 경우, 수량만큼 가져오면 혜택 안내
   - [ ] 프로모션 제품이 부족한 경우, 일부 수량 정가로 결제 됨을 안내
