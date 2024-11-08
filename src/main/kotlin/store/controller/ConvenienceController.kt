@@ -19,11 +19,13 @@ class ConvenienceController(
         val promotion = fileManager.readPromotionFile("src/main/resources/promotions.md")
         // println(DateTimes.now())
 
+        //
         outputView.welcomeMessage()
         outputView.printProductFormat(products)
 
         val rawPurchaseDetails = inputView.getPurchaseDetails()
         val validatedPurchaseList = getValidatePurchaseDetails(rawPurchaseDetails)
+        Inventory(products)
 
         println(validatedPurchaseList)
 
