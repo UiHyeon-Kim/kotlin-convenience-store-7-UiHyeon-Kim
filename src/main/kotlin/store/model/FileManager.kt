@@ -14,7 +14,7 @@ class FileManager {
                 name = values[0],
                 price = values[1].toInt(),
                 quantity = values[2].toInt(),
-                promotion = if (values[3].isNotEmpty()) values[3] else null
+                promotion = if (values[3] != "null") values[3] else ""
             )
         }
     }

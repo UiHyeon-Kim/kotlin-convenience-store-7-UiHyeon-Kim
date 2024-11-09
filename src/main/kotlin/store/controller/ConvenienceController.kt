@@ -58,17 +58,23 @@ class ConvenienceController(
         outputView.printProductFormat(products)
 
         val rawPurchaseDetails = inputView.getPurchaseDetails()
-        val productQuantities = getParseAndValidatePurchaseDetails(rawPurchaseDetails)
-//        PurchaseDetailsValidator.validateProductQuantities(productQuantities, products)
+        val purchaseProductQuantities = getParseAndValidatePurchaseDetails(rawPurchaseDetails)
 
         val inventory = Inventory(products)
-        inventory.check(productQuantities)
+        inventory.check(purchaseProductQuantities)
 
-        val ad = inventory.getQuantities()
+        // 프로모션 재고보다 많은지
+        val productQuantities = inventory.promotionQuantity(purchaseProductQuantities)
 
-        inputView.selectPromotion()
+
+        // TODO: 프로모션 재고보다 많이 구매하면
+        inputView.selectGeneralPrice()
+
+        // TODO: 프로모션 재고가 남아있는데, 구매 개수가 안 맞을 경우
+        inputView.selectAddPromotion()
+
+
         inputView.selectMembership()
-
         inputView.selectAdditionalPurchases()
 
     }
