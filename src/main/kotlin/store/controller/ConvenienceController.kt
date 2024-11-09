@@ -1,7 +1,7 @@
 package store.controller
 
+import Inventory
 import store.model.FileManager
-import store.model.Inventory
 import store.util.vaildator.PurchaseDetailsValidator.getParseAndValidatePurchaseDetails
 import store.view.InputView
 import store.view.OutputView
@@ -40,7 +40,6 @@ import store.view.OutputView
  *    어떻게 구분하지?
  *
  *  영수증 출력
- *
  */
 
 class ConvenienceController(
@@ -55,21 +54,17 @@ class ConvenienceController(
         val promotion = fileManager.readPromotionFile("src/main/resources/promotions.md")
         // println(DateTimes.now())
 
-//        while (true) {
-//
-//        }
-        //
         outputView.welcomeMessage()
         outputView.printProductFormat(products)
 
         val rawPurchaseDetails = inputView.getPurchaseDetails()
-        val purchaseDetails = getParseAndValidatePurchaseDetails(rawPurchaseDetails)
+        val productQuantities = getParseAndValidatePurchaseDetails(rawPurchaseDetails)
+//        PurchaseDetailsValidator.validateProductQuantities(productQuantities, products)
 
         val inventory = Inventory(products)
+
         // TODO: 재고 파악 기능 만들기
-//        inventory.check(validatedPurchaseList)
-//
-//        println(validatedPurchaseList)
+        inventory.check(productQuantities)
 
 
         inputView.selectPromotion()

@@ -1,5 +1,6 @@
 package store.util.vaildator
 
+import store.model.Product
 import store.util.constant.Error
 
 object PurchaseDetailsValidator {
@@ -7,7 +8,6 @@ object PurchaseDetailsValidator {
     fun getParseAndValidatePurchaseDetails(rawPurchaseDetails: String): Map<String, Int> {
         val detachedValues = detacheValue(rawPurchaseDetails)
         validateDetachedValue(detachedValues)
-
         val trimmedValues = trimValues(detachedValues)
         validateTrimmedValue(trimmedValues)
 
@@ -34,10 +34,15 @@ object PurchaseDetailsValidator {
         }
     }
 
-    private fun initProductQuantities(
-        purchaseDetails: List<String>,
-        productQuantities: MutableMap<String, Int>
-    ) {
+    // FIXME: List<Product>로 변경해야 함
+    fun validateProductQuantities(productQuantities: Map<String, Int>, product: Product) {
+        productQuantities.forEach { item, quantities ->
+            require(item in product.name) { Error.INVAILD_FORMAT.message }
+            require(quantities > 0) { Error.INVALID_INPUT.message }
+        }
+    }
+
+    private fun initProductQuantities(purchaseDetails: List<String>, productQuantities: MutableMap<String, Int>) {
         purchaseDetails.forEach { item ->
             val product = item.split("-")[0]
             val quantities = item.split("-")[1].toInt()
