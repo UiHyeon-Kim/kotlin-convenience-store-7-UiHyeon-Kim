@@ -1,4 +1,4 @@
-package store.util.vaildator
+package store.util.validator
 
 import store.model.Product
 import store.util.constant.Error

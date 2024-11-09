@@ -2,7 +2,7 @@ package store.controller
 
 import Inventory
 import store.model.FileManager
-import store.util.vaildator.PurchaseDetailsValidator.getParseAndValidatePurchaseDetails
+import store.util.validator.PurchaseDetailsValidator.getParseAndValidatePurchaseDetails
 import store.view.InputView
 import store.view.OutputView
 
@@ -62,10 +62,9 @@ class ConvenienceController(
 //        PurchaseDetailsValidator.validateProductQuantities(productQuantities, products)
 
         val inventory = Inventory(products)
-
-        // TODO: 재고 파악 기능 만들기
         inventory.check(productQuantities)
 
+        val ad = inventory.getQuantities()
 
         inputView.selectPromotion()
         inputView.selectMembership()

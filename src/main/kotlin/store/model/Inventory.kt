@@ -18,7 +18,8 @@ class Inventory(private val products: List<Product>) {
 
     // 재고 파악
     fun check(purchaseItems: Map<String, Int>) {
-        val totalQuantity = getTotalQuantity(products)
+        //val totalQuantity = getTotalQuantity(products)
+        val totalQuantity = getQuantities().mapValues { (_, pair) -> pair.first + pair.second }
 
         purchaseItems.forEach { name, quantity ->
             totalQuantity[name] ?: throw IllegalArgumentException(Error.ITEM_NOT_FOUND.message)
@@ -26,11 +27,22 @@ class Inventory(private val products: List<Product>) {
         }
     }
 
-    private fun getTotalQuantity(products: List<Product>): Map<String, Int> {
+    fun getQuantities(): Map<String, Pair<Int, Int>> {
+        return products
+            .groupBy { it.name }
+            .mapValues { (_, productDetails) ->
+                val promotionQuantity = productDetails.filter { it.promotion != null }.sumOf { it.quantity }
+                val regularQuantity = productDetails.filter { it.promotion == null }.sumOf { it.quantity }
+
+                Pair(promotionQuantity, regularQuantity)
+            }
+    }
+
+    /*private fun getTotalQuantity(products: List<Product>): Map<String, Int> {
         return products
             .groupBy { it.name }
             .mapValues { (_, productDetails) ->
                 productDetails.sumOf { it.quantity }
         }
-    }
+    }*/
 }
