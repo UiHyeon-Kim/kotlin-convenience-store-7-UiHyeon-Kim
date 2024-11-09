@@ -63,15 +63,14 @@ class ConvenienceController(
         val inventory = Inventory(products)
         inventory.check(purchaseProductQuantities)
 
-        // 프로모션 재고보다 많은지
-        val productQuantities = inventory.promotionQuantity(purchaseProductQuantities)
+        inventory.ComparePromotionQuantity(purchaseProductQuantities)
 
 
         // TODO: 프로모션 재고보다 많이 구매하면
-        inputView.selectGeneralPrice()
+        //inputView.selectGeneralPrice()
 
         // TODO: 프로모션 재고가 남아있는데, 구매 개수가 안 맞을 경우
-        inputView.selectAddPromotion()
+        //inputView.selectAddPromotion()
 
 
         inputView.selectMembership()

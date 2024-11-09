@@ -1,5 +1,6 @@
 import store.model.Product
 import store.util.constant.Error
+import store.util.constant.Input
 
 class Inventory(private val products: List<Product>) {
 
@@ -16,9 +17,7 @@ class Inventory(private val products: List<Product>) {
 //        포함 됐다면 그것의 총개수가 재고의
 
 
-    // 재고 파악
     fun check(purchaseItems: Map<String, Int>) {
-        //val totalQuantity = getTotalQuantity(products)
         val totalQuantity = getQuantities().mapValues { (_, pair) -> pair.first + pair.second }
 
         purchaseItems.forEach { name, quantity ->
@@ -27,25 +26,27 @@ class Inventory(private val products: List<Product>) {
         }
     }
 
-    // TODO: 프로모션 적용 가능한 상품에 대해 더 적게 가져온 경우의 재고 파악
-    // 구매하는 상품의 개수와 재고 중 프로모션 상품의 재고 비교
-    fun promotionQuantity(purchaseItems: Map<String, Int>) {
-        println("페어 맵 확인 ${getQuantities()}")
-        val 아래와같은거 = getQuantities().filter { it.key in purchaseItems.keys }.map { it.component2().second }
-        val productQuantity = getQuantities().map { (key, pair) ->
-            key in purchaseItems.keys
+    fun ComparePromotionQuantity(purchaseItems: Map<String, Int>) {
+        val promotionQuantity = getQuantities().mapValues { it.value.first } // 구매한 상품의 프로모션 재고
+
+        purchaseItems.forEach { name, quantity ->
+            val availablePromotionQuantity = promotionQuantity[name] ?: 0
+
+            if(availablePromotionQuantity < quantity) {
+                val message = Input.NON_PROMOTION.getMessage(name, quantity - availablePromotionQuantity)
+                println(message)
+            }
         }
-        println(아래와같은거)
-        /*purchaseItems.forEach { name, quantity ->
-        }*/
     }
 
     fun getQuantities(): Map<String, Pair<Int, Int>> {
         return products
             .groupBy { it.name }
             .mapValues { (_, productDetails) ->
-                val promotionQuantity = productDetails.filter { it.promotion != null && it.promotion.isNotEmpty() }.sumOf { it.quantity }
-                val regularQuantity = productDetails.filter { it.promotion == null || it.promotion.isEmpty() }.sumOf { it.quantity }
+                val promotionQuantity =
+                    productDetails.filter { it.promotion != null && it.promotion.isNotEmpty() }.sumOf { it.quantity }
+                val regularQuantity =
+                    productDetails.filter { it.promotion == null || it.promotion.isEmpty() }.sumOf { it.quantity }
 
                 Pair(promotionQuantity, regularQuantity)
             }
