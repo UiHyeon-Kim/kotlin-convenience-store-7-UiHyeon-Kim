@@ -5,7 +5,7 @@ import store.util.constant.Input
 
 class InputView {
     fun getPurchaseDetails(): String {
-        println(Input.PRODUCT_AND_QUANTITY.message)
+        println(Input.PRODUCT_AND_QUANTITY.getMessage())
         return Console.readLine()
     }
 
@@ -20,12 +20,12 @@ class InputView {
     }
 
     fun selectMembership(): String {
-        println(Input.MEMBERSHIP_DISCOUNT.message)
+        println(Input.MEMBERSHIP_DISCOUNT.getMessage())
         return Console.readLine()
     }
 
     fun selectAdditionalPurchases(): String {
-        println(Input.ADDITIONAL_PURCHASES.message)
+        println(Input.ADDITIONAL_PURCHASES.getMessage())
         return Console.readLine()
     }
 
