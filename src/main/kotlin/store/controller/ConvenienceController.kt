@@ -1,7 +1,9 @@
 package store.controller
 
 import Inventory
+import store.model.Checkout
 import store.model.FileManager
+import store.model.Product
 import store.util.validator.PurchaseDetailsValidator.getParseAndValidatePurchaseDetails
 import store.view.InputView
 import store.view.OutputView
@@ -48,35 +50,52 @@ class ConvenienceController(
 ){
     private var fileManager: FileManager = FileManager()
     private lateinit var inventory: Inventory
+    private lateinit var checkout: Checkout
 
     fun start() {
         val products = fileManager.readProductFile("src/main/resources/products.md")
         val promotion = fileManager.readPromotionFile("src/main/resources/promotions.md")
-        // println(DateTimes.now())
 
-        outputView.welcomeMessage()
-        outputView.printProductFormat(products)
+        repeatedVisits(products)
 
-        val rawPurchaseDetails = inputView.getPurchaseDetails()
-        val purchaseProductQuantities = getParseAndValidatePurchaseDetails(rawPurchaseDetails)
-
-        val inventory = Inventory(products)
-        inventory.check(purchaseProductQuantities)
-
-        inventory.ComparePromotionQuantity(purchaseProductQuantities)
-
-
-        // TODO: 프로모션 재고보다 많이 구매하면
-        //inputView.selectGeneralPrice()
-
-        // TODO: 프로모션 재고가 남아있는데, 구매 개수가 안 맞을 경우
-        //inputView.selectAddPromotion()
-
-
-        inputView.selectMembership()
-        inputView.selectAdditionalPurchases()
+//        inputView.selectMembership()
+//        inputView.selectAdditionalPurchases()
 
     }
 
-//    fun settingConvenience
+    private fun repeatedVisits(products: List<Product>) {
+        // while (true){
+            initialFormatMessage(products)
+            val inventory = Inventory(products)
+
+            val purchaseProductQuantities = validateOfPurchase(inventory)
+            inventory.ComparePromotionQuantity(purchaseProductQuantities)
+
+            // TODO: 프로모션 재고가 남아있는데, 구매 개수가 안 맞을 경우
+            //inputView.selectAddPromotion()
+
+            // TODO: 멤버십 구현
+            val checkout = Checkout(products)
+            checkout.membershipDiscount() // 프로모션 추가한 최종 구매를 인수로 넣기
+        // }
+    }
+
+    private fun initialFormatMessage(products: List<Product>) {
+        outputView.welcomeMessage()
+        outputView.printProductFormat(products)
+    }
+
+    private fun validateOfPurchase(inventory: Inventory): Map<String, Int> {
+        while (true) {
+            try {
+                val rawPurchaseDetails = inputView.getPurchaseDetails()
+                val purchaseProductQuantities = getParseAndValidatePurchaseDetails(rawPurchaseDetails)
+                inventory.check(purchaseProductQuantities)
+                return purchaseProductQuantities
+            } catch (e: IllegalArgumentException) {
+                println(e.message)
+            }
+        }
+    }
+
 }

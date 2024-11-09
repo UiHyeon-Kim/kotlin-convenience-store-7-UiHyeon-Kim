@@ -10,7 +10,6 @@ object PurchaseDetailsValidator {
         validateDetachedValue(detachedValues)
         val trimmedValues = trimValues(detachedValues)
         validateTrimmedValue(trimmedValues)
-
         val productQuantities = mutableMapOf<String, Int>()
         initProductQuantities(trimmedValues, productQuantities)
 

@@ -8,7 +8,7 @@ class OutputView {
 
     fun printProductFormat(products: List<Product>) {
         products.forEach { product ->
-            println("- ${product.name} ${product.price}원 ${product.quantity}개 ${product.promotion ?: ""}")
+            println("- ${product.name} ${product.price}원 ${product.quantity}개 ${product.promotion}")
         }
     }
 

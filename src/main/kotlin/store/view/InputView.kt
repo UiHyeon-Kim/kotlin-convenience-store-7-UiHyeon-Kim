@@ -4,8 +4,6 @@ import camp.nextstep.edu.missionutils.Console
 import store.util.constant.Input
 
 class InputView {
-    val regex = Regex("[\\[\\]]")
-
     fun getPurchaseDetails(): String {
         println(Input.PRODUCT_AND_QUANTITY.message)
         return Console.readLine()
