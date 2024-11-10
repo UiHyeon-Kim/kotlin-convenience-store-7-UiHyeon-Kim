@@ -1,12 +1,14 @@
 package store.controller
 
 import Inventory
+import camp.nextstep.edu.missionutils.DateTimes
 import store.model.Checkout
 import store.model.FileManager
 import store.model.Product
 import store.util.validator.PurchaseDetailsValidator.getParseAndValidatePurchaseDetails
 import store.view.InputView
 import store.view.OutputView
+import java.text.SimpleDateFormat
 
 /**
  * 재고는 프로모션 재고와 일반 재고로 나누어짐.
@@ -66,8 +68,10 @@ class ConvenienceController(
             //inputView.selectAddPromotion()
 
             // TODO: 멤버십 구현
-            val checkout = Checkout(products)
-            checkout.membershipDiscount() // 프로모션 추가한 최종 구매를 인수로 넣기
+            val checkout = Checkout()
+            // checkout.membershipDiscount() // 프로모션 추가한 최종 구매를 인수로 넣기
+
+            printReceipt()
         // }
     }
 
@@ -87,6 +91,14 @@ class ConvenienceController(
                 println(e.message)
             }
         }
+    }
+
+    private fun printReceipt() {
+        outputView.printReceiptHeader()
+//        outputView.printReceiptBodyPurchasedItems()
+        outputView.printReceiptBody()
+//        outputView.printReceiptBodyPromotionItems()
+//        outputView.printReceiptFooter()
     }
 
 }

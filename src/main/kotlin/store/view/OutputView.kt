@@ -1,6 +1,7 @@
 package store.view
 
 import store.model.Product
+import store.util.constant.Output
 
 class OutputView {
 
@@ -13,28 +14,33 @@ class OutputView {
     }
 
     fun printReceiptHeader() {
-        println("===========W 편의점=============")
-        println("상품명\t\t수량\t금액")
+        println(Output.RECEIPT_HEADER.getMessage())
+        println(Output.RECEIPT_ITEM_LABEL.getMessage())
     }
 
-    fun printReceiptBodyPurchasedItems() {
-        println("%s\t\t%d\t%d")
+    fun printReceiptBodyPurchasedItems(name: String, quantity: Int, price: Int) {
+        println(String.format(Output.RECEIPT_PURCHASED_ITEM.getMessage(), name, quantity, price))
     }
 
     fun printReceiptBody() {
-        println("===========증\t정=============")
+        println(Output.RECEIPT_PROMOTION_HEADER.getMessage())
     }
 
-    fun printReceiptBodyPromotionItems() {
-        println("%s\t\t%d")
+    fun printReceiptBodyPromotionItems(name: String, quantity: Int) {
+        println(String.format(Output.RECEIPT_PROMOTION_ITEM.getMessage(), name, quantity))
     }
 
-    fun printReceiptFooter() {
-        println("==============================")
-        println("총구매액\t\t%d\t%d")
-        println("행사할인\t\t\t%d")
-        println("멤버십할인\t\t\t%d")
-        println("내실돈\t\t\t%d")
+    fun printReceiptFooter(totalQuantity: Int,
+                           totalPrice: Int,
+                           promoDiscount: Int,
+                           membershipDiscount: Int,
+                           totalPay: Int
+    ) {
+        println(Output.RECEIPT_PROMOTION_FOOTER.getMessage())
+        println(String.format(Output.RECEIPT_TOTAL_AMOUNT.getMessage(), totalQuantity, totalPrice))
+        println(String.format(Output.RECEIPT_EVENT_DISCOUNT.getMessage(), promoDiscount))
+        println(String.format(Output.RECEIPT_MEMBERSHIP_DISCOUNT.getMessage(), membershipDiscount))
+        println(String.format(Output.RECEIPT_FINAL_AMOUNT.getMessage(), totalPay))
     }
 
 }

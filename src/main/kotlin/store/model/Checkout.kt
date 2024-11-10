@@ -4,14 +4,20 @@ import camp.nextstep.edu.missionutils.DateTimes
 import java.text.SimpleDateFormat
 import java.util.Date
 
-class Checkout(private val product: List<Product>) {
+class Checkout {
     // TODO: 금액 계산, 프로모션, 멤버십
     // 프로모션 할인 적용 안될 때, 더 가져오면 무료로 받을 수 있을 때
-    fun promotion() {
-
+    fun applyPromotion(
+        products: List<Product>,
+        promotions: List<Promotion>,
+        purchaseProductQuantities: Map<String,Int>
+    ) {
+        products.forEach { product ->
+            //val matchItem = purchaseProductQuantities.filter { it.value in product.name }
+        }
     }
 
-    fun getCurrentDate(): Date {
+    private fun getCurrentDate(): Date {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd")
         return dateFormat.parse(DateTimes.now().toString())
     }
@@ -21,4 +27,6 @@ class Checkout(private val product: List<Product>) {
     fun membershipDiscount() {
 
     }
+
+    // fun receipt
 }
