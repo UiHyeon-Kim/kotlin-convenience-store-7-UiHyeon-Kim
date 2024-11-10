@@ -13,7 +13,10 @@ class Checkout {
         purchaseProductQuantities: Map<String,Int>
     ) {
         products.forEach { product ->
-            //val matchItem = purchaseProductQuantities.filter { it.value in product.name }
+            val matchItem = purchaseProductQuantities
+                .filter { it.key in product.name }
+                .map {  }
+            println(matchItem)
         }
     }
 
@@ -28,5 +31,4 @@ class Checkout {
 
     }
 
-    // fun receipt
 }

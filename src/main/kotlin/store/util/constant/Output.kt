@@ -10,7 +10,11 @@ enum class Output(private val message: String) {
     RECEIPT_TOTAL_AMOUNT("총구매액\t\t%d\t%d"),
     RECEIPT_EVENT_DISCOUNT("행사할인\t\t\t%d"),
     RECEIPT_MEMBERSHIP_DISCOUNT("멤버십할인\t\t\t%d"),
-    RECEIPT_FINAL_AMOUNT("내실돈\t\t\t%d");
+    RECEIPT_FINAL_AMOUNT("내실돈\t\t\t%d"),
+
+    RE_INPUT("잘못 입력하셨습니다. 다시 입력해주세요."),
+
+    GOOD_BYE("W편의점을 이용해주셔서 감사합니다.");
 
     fun getMessage(vararg any: Any): String {
         return String.format(message, *any)

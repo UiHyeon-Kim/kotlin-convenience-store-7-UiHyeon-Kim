@@ -24,7 +24,7 @@ class InputView {
         return Console.readLine()
     }
 
-    fun selectAdditionalPurchases(): String {
+    fun selectMorePurchases(): String {
         println(Input.ADDITIONAL_PURCHASES.getMessage())
         return Console.readLine()
     }
