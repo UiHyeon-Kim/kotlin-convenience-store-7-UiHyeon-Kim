@@ -28,7 +28,7 @@ class Checkout {
     // 전체값 * 퍼센트 / 100
     // (최종 구매 물건 개수 * 금액) * 30 / 100
     fun membershipDiscount() {
-
+        println("멤버십 할인 적용")
     }
 
 }
