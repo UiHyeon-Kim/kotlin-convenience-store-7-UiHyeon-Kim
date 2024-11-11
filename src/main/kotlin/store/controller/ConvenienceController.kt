@@ -5,6 +5,11 @@ import store.model.Checkout
 import store.model.FileManager
 import store.model.Product
 import store.model.Promotion
+import store.util.constant.General.NEW_LINE
+import store.util.constant.General.NO
+import store.util.constant.General.PRODUCT_PATH
+import store.util.constant.General.PROMOTION_PATH
+import store.util.constant.General.YES
 import store.util.constant.Output
 import store.util.validator.PurchaseDetailsValidator.getParseAndValidatePurchaseDetails
 import store.view.InputView
@@ -19,8 +24,8 @@ class ConvenienceController(
     private lateinit var checkout: Checkout
 
     fun start() {
-        val products = fileManager.readProductFile("src/main/resources/products.md")
-        val promotions = fileManager.readPromotionFile("src/main/resources/promotions.md")
+        val products = fileManager.readProductFile(PRODUCT_PATH)
+        val promotions = fileManager.readPromotionFile(PROMOTION_PATH)
 
         repeatedVisits(products, promotions)
     }
@@ -65,8 +70,8 @@ class ConvenienceController(
         while (true) {
             val choice = inputView.selectMembership()
             when (choice.trim().uppercase()) {
-                "N" -> return false
-                "Y" -> return true
+                YES -> return true
+                NO -> return false
                 else -> println(Output.RE_INPUT.getMessage())
             }
         }
@@ -85,8 +90,8 @@ class ConvenienceController(
         while (true) {
             val choice = inputView.selectMorePurchases()
             when (choice.trim().uppercase()) {
-                "N" -> { println(Output.GOOD_BYE.getMessage()); return false }
-                "Y" -> { println("\n"); return true }
+                YES -> { println(NEW_LINE); return true }
+                NO -> { println(Output.GOOD_BYE.getMessage()); return false }
                 else -> println(Output.RE_INPUT.getMessage())
             }
         }

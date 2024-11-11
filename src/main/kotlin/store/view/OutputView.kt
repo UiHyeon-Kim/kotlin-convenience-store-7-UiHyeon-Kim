@@ -5,7 +5,7 @@ import store.util.constant.Output
 
 class OutputView {
 
-    fun welcomeMessage() = println("안녕하세요. W편의점입니다.\n현재 보유하고 있는 상품입니다.\n")
+    fun welcomeMessage() = println(Output.WELCOME.getMessage())
 
     fun printProductFormat(products: List<Product>) {
         products.forEach { product ->

@@ -1,12 +1,10 @@
-package store
+package store.model
 
 import Inventory
-import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatCode
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import store.model.Product
 
 class InventoryTest {
 

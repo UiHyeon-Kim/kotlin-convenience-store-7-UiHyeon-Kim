@@ -1,5 +1,6 @@
 import store.model.Product
 import store.util.constant.Error
+import store.util.constant.General.ZERO
 import store.util.constant.Input
 
 class Inventory(private val products: List<Product>) {
@@ -17,7 +18,7 @@ class Inventory(private val products: List<Product>) {
         val promotionQuantity = getQuantities().mapValues { it.value.first } // 구매한 상품의 프로모션 재고
 
         purchaseItems.forEach { name, quantity ->
-            val availablePromotionQuantity = promotionQuantity[name] ?: 0
+            val availablePromotionQuantity = promotionQuantity[name] ?: ZERO
 
             if(availablePromotionQuantity < quantity) {
                 val message = Input.NON_PROMOTION.getMessage(name, quantity - availablePromotionQuantity)

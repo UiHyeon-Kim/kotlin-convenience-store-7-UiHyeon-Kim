@@ -1,6 +1,9 @@
 package store.model
 
 import camp.nextstep.edu.missionutils.DateTimes
+import store.util.constant.General.DATE_FORMAT
+import store.util.constant.General.DISCOUNT_RATE
+import store.util.constant.General.PERCENTAGE
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -21,14 +24,14 @@ class Checkout {
     }
 
     private fun getCurrentDate(): Date {
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+        val dateFormat = SimpleDateFormat(DATE_FORMAT)
         return dateFormat.parse(DateTimes.now().toString())
     }
 
     // 전체값 * 퍼센트 / 100
     // (최종 구매 물건 개수 * 금액) * 30 / 100
     fun membershipDiscount(intetmediatePrice: Int): Int {
-        return intetmediatePrice * 25 / 100
+        return intetmediatePrice * DISCOUNT_RATE / PERCENTAGE
     }
 
 }
