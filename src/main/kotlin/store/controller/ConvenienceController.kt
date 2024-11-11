@@ -36,7 +36,7 @@ class ConvenienceController(
              val checkout = Checkout()
              checkout.applyPromotion(products, promotions, purchaseProductQuantities)
 
-             if (selectMembership()) checkout.membershipDiscount()
+             //if (selectMembership()) checkout.membershipDiscount()
 
              printReceipt()
              if (!selectMorePurchase()) return
