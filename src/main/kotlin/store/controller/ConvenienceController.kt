@@ -80,10 +80,10 @@ class ConvenienceController(
     // TODO: 출력할 매개변수 필요..?
     private fun printReceipt() {
         outputView.printReceiptHeader()
-//        outputView.printReceiptBodyPurchasedItems()
+//        outputView.printReceiptBodyPurchasedItems(name, quantity, price)
         outputView.printReceiptBody()
-//        outputView.printReceiptBodyPromotionItems()
-//        outputView.printReceiptFooter()
+//        outputView.printReceiptBodyPromotionItems(name, quantity)
+//        outputView.printReceiptFooter(totalQuantity, totalPrice, promoDiscount, membershipDiscount, totalPay)
     }
 
     private fun selectMorePurchase(): Boolean {

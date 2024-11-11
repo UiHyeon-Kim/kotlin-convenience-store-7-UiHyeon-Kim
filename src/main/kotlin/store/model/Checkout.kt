@@ -28,10 +28,18 @@ class Checkout {
         return dateFormat.parse(DateTimes.now().toString())
     }
 
+//    fun promotionDiscount(products: List<Product>, purchaseProductQuantities: Map<String, Int>): Int {
+//
+//    }
+
     // 전체값 * 퍼센트 / 100
     // (최종 구매 물건 개수 * 금액) * 30 / 100
     fun membershipDiscount(intetmediatePrice: Int): Int {
         return intetmediatePrice * DISCOUNT_RATE / PERCENTAGE
+    }
+
+    fun payment(totalPrice: Int, promotionDiscount: Int, membershipDiscount: Int): Int {
+        return totalPrice - promotionDiscount - membershipDiscount
     }
 
 }
