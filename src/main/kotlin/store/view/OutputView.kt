@@ -19,7 +19,7 @@ class OutputView {
     }
 
     fun printReceiptBodyPurchasedItems(name: String, quantity: Int, price: Int) {
-        println(String.format(Output.RECEIPT_PURCHASED_ITEM.getMessage(), name, quantity, price))
+        println(Output.RECEIPT_PURCHASED_ITEM.getMessage(name, quantity, price))
     }
 
     fun printReceiptBody() {
@@ -37,10 +37,10 @@ class OutputView {
                            totalPay: Int
     ) {
         println(Output.RECEIPT_PROMOTION_FOOTER.getMessage())
-        println(String.format(Output.RECEIPT_TOTAL_AMOUNT.getMessage(), totalQuantity, totalPrice))
-        println(String.format(Output.RECEIPT_EVENT_DISCOUNT.getMessage(), promoDiscount))
-        println(String.format(Output.RECEIPT_MEMBERSHIP_DISCOUNT.getMessage(), membershipDiscount))
-        println(String.format(Output.RECEIPT_FINAL_AMOUNT.getMessage(), totalPay))
+        println(Output.RECEIPT_TOTAL_AMOUNT.getMessage(totalQuantity, totalPrice))
+        println(Output.RECEIPT_EVENT_DISCOUNT.getMessage(promoDiscount))
+        println(Output.RECEIPT_MEMBERSHIP_DISCOUNT.getMessage(membershipDiscount))
+        println(Output.RECEIPT_FINAL_AMOUNT.getMessage(totalPay))
     }
 
 }

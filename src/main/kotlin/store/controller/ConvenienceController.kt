@@ -40,9 +40,31 @@ class ConvenienceController(
              inventory.ComparePromotionQuantity(purchaseProductQuantities)
              // TODO: 프로모션 개수 비교
              // checkout.applyPromotion(products, promotions, purchaseProductQuantities)
-             val applyDiscount = checkout.membershipDiscount(products, purchaseProductQuantities)
+             val applyDiscount = if (selectMembership()) {
+                 checkout.membershipDiscount(products, purchaseProductQuantities)
+             } else {
+                 0
+             }
              // TODO: 영수증
-             printReceipt()
+             outputView.printReceiptHeader()
+
+             purchaseProductQuantities.forEach { (name, quantity) ->
+                val price = products.find { it.name == name }?.price ?: 0
+                outputView.printReceiptBodyPurchasedItems(name, quantity, price)
+             }
+
+             outputView.printReceiptBody()
+//             outputView.printReceiptBodyPromotionItems(name, quantity)
+
+             var totalQuantity = 0
+             var totalPrice = 0
+             purchaseProductQuantities.forEach { (name, quantity) ->
+                 val price = products.find { it.name == name }?.price ?: 0
+                 totalQuantity += quantity
+                 totalPrice += price
+             }
+             val totalPay = totalPrice - applyDiscount
+             outputView.printReceiptFooter(totalQuantity, totalPrice, 0, applyDiscount, totalPay)
              if (!selectMorePurchase()) return
          }
     }
@@ -74,15 +96,6 @@ class ConvenienceController(
                 else -> println(Output.RE_INPUT.getMessage())
             }
         }
-    }
-
-    // TODO: 출력할 매개변수 필요..?
-    private fun printReceipt() {
-        outputView.printReceiptHeader()
-//        outputView.printReceiptBodyPurchasedItems(name, quantity, price)
-        outputView.printReceiptBody()
-//        outputView.printReceiptBodyPromotionItems(name, quantity)
-//        outputView.printReceiptFooter(totalQuantity, totalPrice, promoDiscount, membershipDiscount, totalPay)
     }
 
     private fun selectMorePurchase(): Boolean {
