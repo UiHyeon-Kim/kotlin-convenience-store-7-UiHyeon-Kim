@@ -33,16 +33,15 @@ class ConvenienceController(
     private fun repeatedVisits(products: List<Product>, promotions: List<Promotion>) {
          while (true){
              initialFormatMessage(products)
-             val inventory = Inventory(products)
 
+             val inventory = Inventory(products)
+             val checkout = Checkout()
              val purchaseProductQuantities = validateOfPurchase(inventory)
              inventory.ComparePromotionQuantity(purchaseProductQuantities)
-
-             val checkout = Checkout()
-             checkout.applyPromotion(products, promotions, purchaseProductQuantities)
-
-             //if (selectMembership()) checkout.membershipDiscount()
-
+             // TODO: 프로모션 개수 비교
+             // checkout.applyPromotion(products, promotions, purchaseProductQuantities)
+             val applyDiscount = checkout.membershipDiscount(products, purchaseProductQuantities)
+             // TODO: 영수증
              printReceipt()
              if (!selectMorePurchase()) return
          }
