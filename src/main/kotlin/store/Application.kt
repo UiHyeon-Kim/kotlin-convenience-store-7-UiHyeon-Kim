@@ -1,5 +1,9 @@
 package store
 
 fun main() {
-    // TODO: 프로그램 구현
+    val products = readProductsCsv("src/main/resources/products.md")
+    val inputView = InputView()
+    val outputView = OutputView()
+    val convenienceStore = ConvenienceStore(products, inputView, outputView)
+    convenienceStore.start()
 }
