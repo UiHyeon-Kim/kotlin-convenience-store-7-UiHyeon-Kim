@@ -1,8 +1,9 @@
-package store
+package store.utils
 
+import store.model.Products
+import store.model.Promotion
 import java.io.File
 import java.text.SimpleDateFormat
-import java.time.LocalDate
 
 object FileManager {
     fun loadProductsCsv(filePath: String): List<Products> {

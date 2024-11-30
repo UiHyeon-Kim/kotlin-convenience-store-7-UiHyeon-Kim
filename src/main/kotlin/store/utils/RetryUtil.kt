@@ -1,4 +1,4 @@
-package store
+package store.utils
 
 fun <T> retryInput(run: () -> T): T {
     while (true) {

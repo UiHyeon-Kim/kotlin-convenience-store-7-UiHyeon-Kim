@@ -1,4 +1,4 @@
-package store
+package store.model
 
 data class ShoppingCart(
     val name: String,

@@ -1,4 +1,4 @@
-package store
+package store.model
 
 data class Products(
     val name: String,

@@ -1,5 +1,11 @@
 package store
 
+import store.service.Checkout
+import store.service.Inventory
+import store.utils.FileManager
+import store.view.InputView
+import store.view.OutputView
+
 fun main() {
     val products = FileManager.loadProductsCsv("src/main/resources/products.md").toMutableList()
     val promotion = FileManager.loadPromotionCsv("src/main/resources/promotions.md")

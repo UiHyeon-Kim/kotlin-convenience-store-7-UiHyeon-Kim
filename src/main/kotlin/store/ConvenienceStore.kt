@@ -1,5 +1,13 @@
 package store
 
+import store.model.Products
+import store.model.Promotion
+import store.service.Checkout
+import store.service.Inventory
+import store.utils.retryInput
+import store.view.InputView
+import store.view.OutputView
+
 class ConvenienceStore(
     private val products: List<Products>,
     private val promotion: List<Promotion>,

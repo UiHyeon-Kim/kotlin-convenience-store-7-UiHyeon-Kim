@@ -1,4 +1,7 @@
-package store
+package store.view
+
+import store.model.Products
+import store.model.ShoppingCart
 
 class OutputView {
     fun printWelcomeMessage() {
