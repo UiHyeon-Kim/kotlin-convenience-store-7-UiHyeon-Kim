@@ -2,6 +2,7 @@ package store
 
 import store.model.Products
 import store.model.Promotion
+import store.model.ShoppingCart
 import store.service.Checkout
 import store.service.Inventory
 import store.utils.retryInput
@@ -9,7 +10,7 @@ import store.view.InputView
 import store.view.OutputView
 
 class ConvenienceStore(
-    private val products: List<Products>,
+    private val products: MutableList<Products>,
     private val promotion: List<Promotion>,
     private val inputView: InputView,
     private val outputView: OutputView,
@@ -19,28 +20,23 @@ class ConvenienceStore(
     fun start() {
         outputView.printWelcomeMessage()
         outputView.printProducts(products)
-        val productsAndQuantities = validateProductAndQuantity()
+        val cartItems = parseAndValidateCartItems()
 
         readMembershipDiscount()
         printReceipt()
         readMorePurchase()
     }
 
-    private fun validateProductAndQuantity(): List<Pair<String, Int>> = retryInput {
-        val rawProductAndQuantity = inputView.readProductAndQuantity()
-        val splitProductsAndQuantities = rawProductAndQuantity.split(",")
-        val productsAndQuantities = validateFormat(splitProductsAndQuantities)
-        productsAndQuantities
-    }
-
-    private fun validateFormat(splitProductsAndQuantities: List<String>): List<Pair<String, Int>> {
-        val productsAndQuantities = splitProductsAndQuantities.map { item ->
-            val product = item.trim('[', ']').split("-")[0]
-            val quantities = item.trim('[', ']').split("-")[1]
+    private fun parseAndValidateCartItems(): List<ShoppingCart> = retryInput {
+        val rawCartItems = inputView.readProductAndQuantity()
+        val splitCartItems = rawCartItems.split(",")
+        return@retryInput splitCartItems.map { item ->
+            val (product, quantityString) = item.trim('[', ']').split("-")
+            val quantity = requireNotNull(quantityString.toIntOrNull()) {"[ERROR] 올바르지 않은 형식으로 입력했습니다. 다시 입력해 주세요."}
             require(product in products.map { it.name }) { "[ERROR] 존재하지 않는 상품입니다. 다시 입력해 주세요." }
-            product to requireNotNull(quantities.toIntOrNull()) { "[ERROR] 올바르지 않은 형식으로 입력했습니다. 다시 입력해 주세요." }
+            require(quantity > 0) {"[ERROR] 상품은 1개 이상 구매해야 합니다. 다시 입력해 주세요."}
+            ShoppingCart(product, quantity)
         }
-        return productsAndQuantities
     }
 
     private fun readMembershipDiscount() = retryInput {

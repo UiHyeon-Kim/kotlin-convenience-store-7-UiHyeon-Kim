@@ -20,7 +20,8 @@ class OutputView {
     }
     fun printPurchaseInfo(purchasesInfo: List<ShoppingCart>) {
         purchasesInfo.forEach { purchaseInfo ->
-            println("${purchaseInfo.name}\t\t${purchaseInfo.quantity}\t${purchaseInfo.quantity * purchaseInfo.price}")
+            // TODO: 구매 개수
+            println("${purchaseInfo.name}\t\t${purchaseInfo.quantity}\t${purchaseInfo.quantity}")
         }
     }
     fun printPromotionHeader() {
