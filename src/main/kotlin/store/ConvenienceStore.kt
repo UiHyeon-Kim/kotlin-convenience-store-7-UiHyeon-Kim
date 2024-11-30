@@ -21,10 +21,10 @@ class ConvenienceStore(
         outputView.printWelcomeMessage()
         outputView.printProducts(products)
         val cartItems = parseAndValidateCartItems()
-
-        readMembershipDiscount()
+        //TODO: 프로모션 적용 함수 추가하기
+        choiceMembershipDiscount()
         printReceipt()
-        readMorePurchase()
+        choiceMorePurchase()
     }
 
     private fun parseAndValidateCartItems(): List<ShoppingCart> = retryInput {
@@ -39,7 +39,7 @@ class ConvenienceStore(
         }
     }
 
-    private fun readMembershipDiscount() = retryInput {
+    private fun choiceMembershipDiscount() = retryInput {
         val choice = inputView.readMembershipDiscount()
         when (choice.uppercase()) {
             "Y" -> println() //TODO: 멤버십 할인 함수 넣기
@@ -49,17 +49,16 @@ class ConvenienceStore(
     }
 
     private fun printReceipt(
-//        purchaseInfo: List<PurchaseInfo>,
+//        purchaseInfo: List<ShoppingCart>,
+//        promotionDiscount: Int,
+//        membershipDiscount: Int,
     ) {
-        outputView.printReceiptHeader()
 //        outputView.printPurchaseInfo(purchaseInfo)
-        outputView.printPromotionHeader()
-        outputView.printPromotionInfo()
-        outputView.printTotalHeader()
+//        outputView.printPromotionInfo()
 //        outputView.printTotalInfo()
     }
 
-    private fun readMorePurchase() = retryInput {
+    private fun choiceMorePurchase() = retryInput {
         val choice = inputView.readMorePurchase()
         when (choice.uppercase()) {
             "Y" -> start()
