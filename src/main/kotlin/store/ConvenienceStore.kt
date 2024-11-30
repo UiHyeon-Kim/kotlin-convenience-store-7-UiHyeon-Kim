@@ -5,22 +5,13 @@ class ConvenienceStore(
     private val promotion: List<Promotion>,
     private val inputView: InputView,
     private val outputView: OutputView,
+    private val inventory: Inventory,
+    private val checkout: Checkout,
 ) {
     fun start() {
         outputView.printWelcomeMessage()
         outputView.printProducts(products)
         val productsAndQuantities = validateProductAndQuantity()
-
-        val purchaseInfo = products.map { it.name }
-        val pui = productsAndQuantities.map { it.first in purchaseInfo }
-        println(pui)
-
-        val asd = productsAndQuantities.map { pair ->
-            products.forEach { product ->
-                product.name
-            }
-        }
-
 
         readMembershipDiscount()
         printReceipt()
