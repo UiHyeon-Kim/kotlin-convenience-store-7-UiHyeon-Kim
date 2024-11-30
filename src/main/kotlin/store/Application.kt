@@ -1,9 +1,10 @@
 package store
 
 fun main() {
-    val products = readProductsCsv("src/main/resources/products.md")
+    val products = FileManager.loadProductsCsv("src/main/resources/products.md")
+    val promotion = FileManager.loadPromotionCsv("src/main/resources/promotions.md")
     val inputView = InputView()
     val outputView = OutputView()
-    val convenienceStore = ConvenienceStore(products, inputView, outputView)
+    val convenienceStore = ConvenienceStore(products, promotion, inputView, outputView)
     convenienceStore.start()
 }
