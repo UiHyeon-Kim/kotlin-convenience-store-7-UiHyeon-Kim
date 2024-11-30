@@ -7,11 +7,8 @@ class OutputView {
 
     fun printProducts(products: List<Products>) {
         products.forEach { product ->
-            if (product.quantity < 0) {
-                println("- ${product.name} ${product.price}원 재고 없음 ${product.promotion}")
-            } else {
-                println("- ${product.name} ${product.price}원 ${product.quantity}개 ${product.promotion}")
-            }
+            val quantity = if (product.quantity > 0) "${product.quantity}개" else "재고 없음"
+            println("- ${product.name} ${product.price}원 $quantity ${product.promotion}")
         }
     }
 
