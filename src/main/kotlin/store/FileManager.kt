@@ -12,7 +12,7 @@ fun readProductsCsv(filePath: String): List<Products> {
             name = values[0],
             price = values[1].toInt(),
             quantity = values[2].toInt(),
-            promotion = values[3].ifEmpty { null }
+            promotion = if (values[3] == "null") "" else values[3]
         )
     }
 }

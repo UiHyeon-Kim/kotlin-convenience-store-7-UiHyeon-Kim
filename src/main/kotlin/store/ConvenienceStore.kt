@@ -7,6 +7,7 @@ class ConvenienceStore(
 ) {
     fun start() {
         outputView.printWelcomeMessage()
+        outputView.printProducts(products)
         val rawProductAndQuantity = inputView.readProductAndQuantity()
 
     }
