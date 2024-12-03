@@ -4,6 +4,7 @@ import store.model.Products
 import store.model.Promotion
 import java.io.File
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 
 object FileManager {
     fun loadProductsCsv(filePath: String): List<Products> {
@@ -18,16 +19,15 @@ object FileManager {
         }
     }
 
-    fun loadPromotionCsv(filePath: String): List<Promotion> {
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+    fun loadPromotionsCsv(filePath: String): List<Promotion> {
         return File(filePath).readLines().drop(1).map { line ->
             val parts = line.split(",")
             Promotion(
                 name = parts[0],
                 buy = parts[1].toInt(),
                 get = parts[2].toInt(),
-                start_date = dateFormat.parse(parts[3]),
-                end_date = dateFormat.parse(parts[4])
+                startDate = LocalDate.parse(parts[3]),
+                endDate = LocalDate.parse(parts[4])
             )
         }
     }
