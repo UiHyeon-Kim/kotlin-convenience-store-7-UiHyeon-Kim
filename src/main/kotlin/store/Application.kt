@@ -8,11 +8,11 @@ import store.view.OutputView
 
 fun main() {
     val products = FileManager.loadProductsCsv("src/main/resources/products.md").toMutableList()
-    val promotion = FileManager.loadPromotionCsv("src/main/resources/promotions.md")
+    val promotion = FileManager.loadPromotionsCsv("src/main/resources/promotions.md")
     val inputView = InputView()
     val outputView = OutputView()
     val inventory = Inventory(products)
-    val checkout = Checkout()
+    val checkout = Checkout(promotion)
     val convenienceStore = ConvenienceStore(products, promotion, inputView, outputView, inventory, checkout)
     convenienceStore.start()
 }
