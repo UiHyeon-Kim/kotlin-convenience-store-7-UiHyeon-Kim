@@ -2,6 +2,7 @@ package store.view
 
 import store.model.Products
 import store.model.ShoppingCart
+import store.utils.toWonFormat
 
 class OutputView {
     fun printWelcomeMessage() {
@@ -12,22 +13,26 @@ class OutputView {
     fun printProducts(products: List<Products>) {
         products.forEach { product ->
             val quantity = if (product.quantity > 0) "${product.quantity}개" else "재고 없음"
-            println("- ${product.name} ${product.price}원 $quantity ${product.promotion}")
+            println("- ${product.name} ${product.price.toWonFormat()}원 $quantity ${product.promotion}")
         }
     }
 
     fun printPurchaseInfo(purchasesInfo: List<ShoppingCart>) {
         println("\n===========W 편의점=============")
-        println("상품명\t\t\t수량\t\t금액")
+        println("상품명".padEnd(10) + "\t" + "수량".padEnd(4) + "\t" + "금액".padStart(4))
         purchasesInfo.forEach { purchaseInfo ->
-            // TODO: 구매 개수 추가
-            println("${purchaseInfo.name}\t\t${purchaseInfo.quantity}\t${purchaseInfo.quantity}")
+            println(
+                purchaseInfo.name.padEnd(12) + "\t" +
+                        "${purchaseInfo.quantity}".padEnd(4) + "\t" +
+                        (purchaseInfo.quantity * purchaseInfo.price).toWonFormat().padStart(6)
+            )
         }
     }
 
-    fun printPromotionInfo() {
-        println("===========증\t정=============")
-
+    fun printPromotionInfo(promotionItem: String, promotionItemCount: Int) {
+        println("===========증   정=============")
+        // TODO: 증정 상품 추가
+        println(promotionItem.padEnd(12) + "\t" + "$promotionItemCount".padEnd(4))
     }
 
     fun printTotalInfo(
@@ -35,12 +40,12 @@ class OutputView {
         totalPrice: Int,
         promotionDiscount: Int,
         membershipDiscount: Int,
-        totalPayment:Int
-        ) {
+        totalPayment: Int
+    ) {
         println("==============================")
-        println("총구매액\t\t${totalCount}\t${totalPrice}")
-        println("행사할인\t\t\t${promotionDiscount}")
-        println("멤버십할인\t\t\t${membershipDiscount}")
-        println("내실돈\t\t\t${totalPayment}")
+        println("총구매액".padEnd(12) + "\t" + "$totalCount".padEnd(4) + totalPrice.toWonFormat().padStart(10))
+        println("행사할인".padEnd(16) + "\t" + promotionDiscount.toWonFormat().padStart(10))
+        println("멤버십할인".padEnd(16) + "\t" + membershipDiscount.toWonFormat().padStart(10))
+        println("내실돈".padEnd(16) + "\t" + totalPayment.toWonFormat().padStart(10))
     }
 }
