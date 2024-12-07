@@ -1,8 +1,8 @@
 package store
 
-import store.model.Products
-import store.model.Promotion
-import store.model.ShoppingCart
+import store.domain.Product
+import store.domain.Promotion
+import store.domain.ShoppingCart
 import store.service.Checkout
 import store.service.Inventory
 import store.utils.retryInput
@@ -10,7 +10,7 @@ import store.view.InputView
 import store.view.OutputView
 
 class ConvenienceStore(
-    private val products: MutableList<Products>,
+    private val products: MutableList<Product>,
     private val promotion: List<Promotion>,
     private val inputView: InputView,
     private val outputView: OutputView,
@@ -19,6 +19,7 @@ class ConvenienceStore(
 ) {
     fun start() {
         outputView.printWelcomeMessage()
+        inventory.check()
         outputView.printProducts(products)
         val cartItems = parseAndValidateCartItems()
         //TODO: 프로모션 적용 함수 추가하기
@@ -32,16 +33,16 @@ class ConvenienceStore(
         return@retryInput rawCartItems.split(",").map { item ->
             val (productName, quantityString) = item.trim('[', ']').split("-")
             val product = requireNotNull(inventory.getProduct(productName)) { "[ERROR] 존재하지 않는 상품입니다. 다시 입력해 주세요." }
-            val quantity = requireNotNull(quantityString.toIntOrNull()) {"[ERROR] 올바르지 않은 형식으로 입력했습니다. 다시 입력해 주세요."}
-            require(quantity > 0) {"[ERROR] 상품은 1개 이상 구매해야 합니다. 다시 입력해 주세요."}
-            //TODO: 재고 부족할 시 에러 처리
-            products.filter { it.name == productName }.sumOf { it.quantity } >= quantity
+            val quantity = requireNotNull(quantityString.toIntOrNull()) { "[ERROR] 올바르지 않은 형식으로 입력했습니다. 다시 입력해 주세요." }
+            require(quantity > 0) { "[ERROR] 상품은 1개 이상 구매해야 합니다. 다시 입력해 주세요." }
+            require(products.filter { it.name == productName }
+                .sumOf { it.quantity } >= quantity) { "[ERROR] 재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요." }
             //TODO: 일반재고만 없는 아이템 채우기
             ShoppingCart(
                 name = product.name,
                 quantity = quantity,
                 price = product.price,
-                promotionStock = product.quantity,
+                promotionStock = product.quantity, // 확인 필요
             )
         }
     }
@@ -71,7 +72,7 @@ class ConvenienceStore(
     ) {
         outputView.printPurchaseInfo(cartItems)
         outputView.printPromotionInfo("오렌지 주스", 20)
-        outputView.printTotalInfo(10,100,1000,10000,100000)
+        outputView.printTotalInfo(10, 100, 1000, 10000, 100000)
     }
 
     private fun choiceMorePurchase() = retryInput {

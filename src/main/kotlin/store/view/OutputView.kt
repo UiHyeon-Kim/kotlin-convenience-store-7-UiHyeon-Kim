@@ -1,7 +1,7 @@
 package store.view
 
-import store.model.Products
-import store.model.ShoppingCart
+import store.domain.Product
+import store.domain.ShoppingCart
 import store.utils.toWonFormat
 
 class OutputView {
@@ -10,10 +10,10 @@ class OutputView {
         println("현재 보유하고 있는 상품입니다.\n")
     }
 
-    fun printProducts(products: List<Products>) {
+    fun printProducts(products: List<Product>) {
         products.forEach { product ->
             val quantity = if (product.quantity > 0) "${product.quantity}개" else "재고 없음"
-            println("- ${product.name} ${product.price.toWonFormat()}원 $quantity ${product.promotion}")
+            println("- ${product.name} ${product.price.toWonFormat()}원 $quantity ${product.promotion ?: ""}")
         }
     }
 

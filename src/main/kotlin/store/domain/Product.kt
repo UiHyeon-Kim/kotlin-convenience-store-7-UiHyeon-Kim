@@ -1,6 +1,6 @@
-package store.model
+package store.domain
 
-data class Products(
+data class Product(
     val name: String,
     val price: Int,
     val quantity: Int,

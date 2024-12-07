@@ -6,13 +6,13 @@ class InputView {
     fun readProductAndQuantity(): String {
         println()
         println("구매하실 상품명과 수량을 입력해 주세요. (예: [사이다-2],[감자칩-1])")
-        return Console.readLine()
+        return Console.readLine().trim()
     }
 
     fun readSelect(message: String): String {
         println()
         println(message)
-        return Console.readLine()
+        return Console.readLine().trim()
     }
 
     /*fun readAddPromotion(name: String): String {
@@ -36,7 +36,7 @@ class InputView {
     fun readMorePurchase(): String {
         println()
         println("감사합니다. 구매하고 싶은 다른 상품이 있나요? (Y/N)")
-        return Console.readLine()
+        return Console.readLine().trim()
     }
 
 }
